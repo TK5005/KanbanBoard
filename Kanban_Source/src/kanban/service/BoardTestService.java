@@ -2,6 +2,11 @@ package kanban.service;
 
 import kanban.vo.KanbanBoard;
 
+/**
+ * This class loads test data in to the application. The save method
+ * is not relevant for this test class.
+ *
+ */
 public class BoardTestService implements IBoardService {
 
 	@Override

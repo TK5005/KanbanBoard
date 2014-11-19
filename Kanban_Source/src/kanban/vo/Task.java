@@ -1,5 +1,10 @@
 package kanban.vo;
 
+/**
+ * This class holds all of the information
+ * for a Kanban Task.
+ *
+ */
 public class Task {
 	private String name;
 	private String description;
