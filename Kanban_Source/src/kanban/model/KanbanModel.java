@@ -12,9 +12,21 @@ import kanban.vo.KanbanBoard;
  */
 public class KanbanModel {
 	
-	KanbanBoard kanbanBoard;
+	private KanbanBoard kanbanBoard;
 	
-	ArrayList<IKanbanModelObserver> observers;
+	private ArrayList<IKanbanModelObserver> observers;
+	
+	public void setKanbanBoard(KanbanBoard board){
+		kanbanBoard = board;
+		notifyObservers();
+	}
+	
+	public String getKanbanBoardString(){
+		if(kanbanBoard != null){
+			return kanbanBoard.toString();
+		}
+		return "";
+	}
 	
 	/**
 	 * Constructor

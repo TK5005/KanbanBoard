@@ -28,4 +28,8 @@ public class Task {
 	public void setCategory(Category category) {
 		this.category = category;
 	}
+	
+	public String toString(){
+		return "Task: " + name + ", Description: " + description + ", Category: " + category.getName();
+	}
 }

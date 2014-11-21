@@ -2,6 +2,7 @@ package kanban.view;
 
 import java.awt.BorderLayout;
 
+import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 
@@ -42,10 +43,15 @@ public class KanbanView extends JFrame implements IKanbanModelObserver {
 	private void createUI(){
 		JLabel label = new JLabel("Kanban View");
 		this.add(label, BorderLayout.CENTER);
+		JButton testLoadButton = new JButton("Load Test Board");
+		testLoadButton.addActionListener(controller);
+		this.add(testLoadButton, BorderLayout.CENTER);
 	}
 	
 	@Override
 	public void modelUpdated(KanbanModel model) {
-		// TODO Auto-generated method stub
+		System.out.println("Model was updated!");
+		System.out.println("KanbanBoard is:");
+		System.out.println(model.getKanbanBoardString());
 	}
 }

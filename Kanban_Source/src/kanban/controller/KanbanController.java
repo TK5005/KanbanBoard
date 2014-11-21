@@ -4,6 +4,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import kanban.model.KanbanModel;
+import kanban.service.BoardTestService;
+import kanban.vo.KanbanBoard;
 
 /**
  * This is the controller of the application. It acts as the ActionListener for
@@ -40,6 +42,8 @@ public class KanbanController implements ActionListener{
 
 	@Override
 	public void actionPerformed(ActionEvent arg0) {
-		// TODO Auto-generated method stub
+		BoardTestService testService = new BoardTestService();
+		KanbanBoard loadedBoard = testService.loadBoard("");
+		model.setKanbanBoard(loadedBoard);
 	}
 }
