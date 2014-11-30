@@ -2,8 +2,12 @@ package kanban.model;
 
 import java.util.ArrayList;
 
+import javax.swing.ListModel;
+
 import kanban.controller.IKanbanModelObserver;
+import kanban.vo.Category;
 import kanban.vo.KanbanBoard;
+import kanban.vo.Task;
 
 /**
  * The KananbanModel holds all of the data in the application as
@@ -11,6 +15,8 @@ import kanban.vo.KanbanBoard;
  * 
  */
 public class KanbanModel {
+	
+	private static KanbanModel instance = null;
 	
 	private KanbanBoard kanbanBoard;
 	
@@ -21,6 +27,10 @@ public class KanbanModel {
 		notifyObservers();
 	}
 	
+	public KanbanBoard getKanbanBoard(){
+		return kanbanBoard;
+	}
+	
 	public String getKanbanBoardString(){
 		if(kanbanBoard != null){
 			return kanbanBoard.toString();
@@ -28,10 +38,16 @@ public class KanbanModel {
 		return "";
 	}
 	
+	public static KanbanModel getInstance() {
+		if(instance == null){
+			instance = new KanbanModel();
+		}
+		return instance;
+	}
 	/**
 	 * Constructor
 	 */
-	public KanbanModel(){
+	protected KanbanModel(){
 		kanbanBoard = new KanbanBoard();
 		observers = new ArrayList<IKanbanModelObserver>();
 	}
@@ -66,7 +82,31 @@ public class KanbanModel {
 	 */
 	private void notifyObservers(){
 		for(IKanbanModelObserver observer : observers){
-			observer.modelUpdated(this);
+			observer.modelUpdated();
 		}
+	}
+
+	public Task[] getTasksForCategory(Category category) {
+		ArrayList<Task> categoryTasks = new ArrayList<Task>();
+		Task[] tasks = kanbanBoard.getTaskArray();
+		for(Task task : tasks){
+			if(task.getCategory().equals(category)){
+				categoryTasks.add(task);
+			}
+		}
+		Task[] taskArray = new Task[categoryTasks.size()];
+		taskArray = categoryTasks.toArray(taskArray);
+		return taskArray;
+	}
+	
+	public int categoryTaskNumber(Category category){
+		Task[] tasks = kanbanBoard.getTaskArray();
+		int taskNum = 0;
+		for(Task task : tasks){
+			if(task.getCategory().equals(category)){
+				taskNum++;
+			}
+		}
+		return taskNum;
 	}
 }

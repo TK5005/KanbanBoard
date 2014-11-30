@@ -11,9 +11,7 @@ public class KanbanMain {
 	 */
 	public static void main(String[] args) {
 		
-		KanbanModel model = new KanbanModel();
-		
-		KanbanController controller = new KanbanController(model);
+		KanbanController controller = new KanbanController(KanbanModel.getInstance());
 		
 		KanbanView view = new KanbanView(controller);
 		view.setVisible(true);

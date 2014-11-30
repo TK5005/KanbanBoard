@@ -9,5 +9,5 @@ import kanban.model.KanbanModel;
  * 
  */
 public interface IKanbanModelObserver {
-	void modelUpdated(KanbanModel model);
+	void modelUpdated();
 }

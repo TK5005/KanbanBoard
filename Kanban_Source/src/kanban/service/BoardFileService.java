@@ -1,5 +1,7 @@
 package kanban.service;
 
+import java.io.File;
+
 import kanban.vo.KanbanBoard;
 
 /**
@@ -9,13 +11,13 @@ import kanban.vo.KanbanBoard;
 public class BoardFileService implements IBoardService {
 
 	@Override
-	public KanbanBoard loadBoard(String path) {
+	public KanbanBoard loadBoard(File file) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public void saveBoard(KanbanBoard board) {
+	public void saveBoard(File file, KanbanBoard board) {
 		// TODO Auto-generated method stub
 		
 	}

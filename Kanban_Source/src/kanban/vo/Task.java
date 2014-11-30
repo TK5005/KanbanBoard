@@ -9,6 +9,15 @@ public class Task {
 	private String name;
 	private String description;
 	private Category category;
+	private boolean isComplete;
+	
+	public void setComplete(boolean complete){
+		isComplete = complete;
+	}
+	
+	public boolean getComplete(){
+		return isComplete;
+	}
 	
 	public String getName() {
 		return name;

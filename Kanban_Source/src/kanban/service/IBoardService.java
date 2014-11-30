@@ -1,5 +1,7 @@
 package kanban.service;
 
+import java.io.File;
+
 import kanban.vo.KanbanBoard;
 
 /**
@@ -8,6 +10,6 @@ import kanban.vo.KanbanBoard;
  *
  */
 public interface IBoardService {
-	KanbanBoard loadBoard(String path);
-	void saveBoard(KanbanBoard board);
+	KanbanBoard loadBoard(File file);
+	void saveBoard(File file, KanbanBoard board);
 }

@@ -1,5 +1,6 @@
 package kanban.service;
 
+import java.io.File;
 import java.util.Random;
 
 import kanban.vo.Category;
@@ -14,7 +15,7 @@ import kanban.vo.Task;
 public class BoardTestService implements IBoardService {
 
 	@Override
-	public KanbanBoard loadBoard(String path) {
+	public KanbanBoard loadBoard(File file) {
 		KanbanBoard board = new KanbanBoard();
 		addCategories(board, 10);
 		addTasks(board, 10);
@@ -22,9 +23,8 @@ public class BoardTestService implements IBoardService {
 	}
 
 	@Override
-	public void saveBoard(KanbanBoard board) {
-		// TODO Auto-generated method stub
-		
+	public void saveBoard(File file, KanbanBoard board) {
+		System.out.println("Saving not available in test service");
 	}
 	
 	private void addCategories(KanbanBoard board, int numCategories){
