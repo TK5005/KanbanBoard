@@ -1,10 +1,12 @@
 package kanban.vo;
 
+import java.io.Serializable;
+
 /**
  * This class holds all information about a Kanban Category.
  * 
  */
-public class Category {
+public class Category  implements Serializable {
 	private String name;
 	private String description;
 	

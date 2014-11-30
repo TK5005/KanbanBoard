@@ -1,11 +1,13 @@
 package kanban.vo;
 
+import java.io.Serializable;
+
 /**
  * This class holds all of the information
  * for a Kanban Task.
  *
  */
-public class Task {
+public class Task  implements Serializable {
 	private String name;
 	private String description;
 	private Category category;

@@ -27,6 +27,10 @@ public class KanbanModel {
 		notifyObservers();
 	}
 	
+	/**
+	 * Gets the KanbanModel's KanbanBoard object
+	 * @return The KanbanModel's KanbanBoard object
+	 */
 	public KanbanBoard getKanbanBoard(){
 		return kanbanBoard;
 	}
@@ -85,7 +89,12 @@ public class KanbanModel {
 			observer.modelUpdated();
 		}
 	}
-
+	
+	/**
+	 * Gets all task from a specific category
+	 * @param category the category to get tasks from
+	 * @return An array of Task objects
+	 */
 	public Task[] getTasksForCategory(Category category) {
 		ArrayList<Task> categoryTasks = new ArrayList<Task>();
 		Task[] tasks = kanbanBoard.getTaskArray();
@@ -99,6 +108,11 @@ public class KanbanModel {
 		return taskArray;
 	}
 	
+	/**
+	 * Gets the number of tasks in a category
+	 * @param category The category to get the task number for.
+	 * @return The number of tasks in the category.
+	 */
 	public int categoryTaskNumber(Category category){
 		Task[] tasks = kanbanBoard.getTaskArray();
 		int taskNum = 0;

@@ -1,6 +1,12 @@
 package kanban.service;
 
+import java.io.BufferedOutputStream;
 import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectOutput;
+import java.io.ObjectOutputStream;
+import java.io.OutputStream;
 import java.util.Random;
 
 import kanban.vo.Category;
@@ -24,7 +30,13 @@ public class BoardTestService implements IBoardService {
 
 	@Override
 	public void saveBoard(File file, KanbanBoard board) {
-		System.out.println("Saving not available in test service");
+		try{
+			FileOutputStream fout = new FileOutputStream(file);
+	        ObjectOutputStream oos = new ObjectOutputStream(fout);
+	        oos.writeObject(board);
+		}catch(Exception ex){
+			System.out.println(ex);
+		}
 	}
 	
 	private void addCategories(KanbanBoard board, int numCategories){

@@ -31,6 +31,7 @@ public class TaskView extends JPanel {
 		this.task = task;
 		update();
 	}
+	
 	public TaskView(Task task){
 		setPreferredSize(new Dimension(300, 200));
 		setSize(new Dimension(400, 200));
@@ -60,6 +61,10 @@ public class TaskView extends JPanel {
 		setTask(task);
 	}
 	
+	/**
+	 * Called when the user checks or unchecks the complete
+	 * checkbox
+	 */
 	private void handleCompleteCheckbox(){
 		task.setComplete(completeCheckBox.isSelected());
 	}

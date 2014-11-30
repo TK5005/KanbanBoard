@@ -74,6 +74,10 @@ public class KanbanView extends JFrame implements IKanbanModelObserver, ActionLi
 		getContentPane().add(categoryScrollPane, BorderLayout.CENTER);
 	}
 	
+	/**
+	 * Creates the top menu bar
+	 * @return The top menu bar
+	 */
 	private JMenuBar createMenuBar(){
 		JMenuBar menuBar = new JMenuBar();
 		menuBar.add(createFileMenu());
@@ -82,6 +86,10 @@ public class KanbanView extends JFrame implements IKanbanModelObserver, ActionLi
 		return menuBar;
 	}
 	
+	/**
+	 * Create the help menu for the top menu bar
+	 * @return The help menu
+	 */
 	private JMenu createHelpMenu(){
 		JMenu helpMenu = new JMenu("Help");
 		JMenuItem aboutMenuItem = new JMenuItem("About Kanban Board");
@@ -89,6 +97,10 @@ public class KanbanView extends JFrame implements IKanbanModelObserver, ActionLi
 		return helpMenu;
 	}
 	
+	/**
+	 * Creates the file menu for the top menu bar
+	 * @return The file menu
+	 */
 	private JMenu createFileMenu(){
 		JMenu fileMenu = new JMenu("File");
 		JMenu newMenu = new JMenu("New");
@@ -120,6 +132,10 @@ public class KanbanView extends JFrame implements IKanbanModelObserver, ActionLi
 		return fileMenu;
 	}
 	
+	/**
+	 * Creates the edit menu for the top menu bar
+	 * @return The edit menu
+	 */
 	private JMenu createEditMenu(){
 		JMenu editMenu = new JMenu("Edit");
 		JMenuItem categoryItem = new JMenuItem("Categories");
@@ -133,6 +149,10 @@ public class KanbanView extends JFrame implements IKanbanModelObserver, ActionLi
 		drawCategories(model.getKanbanBoard().getCategoryArray());
 	}
 	
+	/**
+	 * Draws all categories and their tasks to the main view
+	 * @param categories
+	 */
 	private void drawCategories(Category[] categories){
 		KanbanModel model = KanbanModel.getInstance();
 		categoryPanel.removeAll();
@@ -170,12 +190,18 @@ public class KanbanView extends JFrame implements IKanbanModelObserver, ActionLi
 		}
 	}
 	
+	/**
+	 * Opens a new task dialog box
+	 */
 	public void openNewTaskWindow(){
 		NewTaskDialog newTaskDialog = new NewTaskDialog(this, "New Task", true);
 		newTaskDialog.setSize(500, 400);
 		newTaskDialog.setVisible(true);
 	}
 	
+	/**
+	 * Opens a new category dialog box
+	 */
 	private void openNewCategoryWindow(){
 		NewCategoryDialog newCatDialog = new NewCategoryDialog(this, "New Category", true);
 		newCatDialog.setSize(500, 400);

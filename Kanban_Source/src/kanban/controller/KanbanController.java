@@ -5,6 +5,7 @@ import java.io.File;
 import javax.swing.JFileChooser;
 
 import kanban.model.KanbanModel;
+import kanban.service.BoardFileService;
 import kanban.service.BoardTestService;
 import kanban.service.IBoardService;
 import kanban.vo.KanbanBoard;
@@ -26,7 +27,7 @@ public class KanbanController implements IKanbanController {
 	 */
 	public KanbanController(KanbanModel model){
 		this.model = model;
-		boardService = new BoardTestService();
+		boardService = new BoardFileService();
 	}
 	
 	/**
