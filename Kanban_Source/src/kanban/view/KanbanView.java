@@ -50,6 +50,7 @@ public class KanbanView extends JFrame implements IKanbanModelObserver, ActionLi
 	private JList<Task> taskList;
 	private JPanel categoryPanel;
 	private JScrollPane categoryScrollPane;
+	private JMenuItem editCategoryItem;
 	
 	/**
 	 * Constructor
@@ -132,14 +133,16 @@ public class KanbanView extends JFrame implements IKanbanModelObserver, ActionLi
 		return fileMenu;
 	}
 	
+	
 	/**
 	 * Creates the edit menu for the top menu bar
 	 * @return The edit menu
 	 */
 	private JMenu createEditMenu(){
 		JMenu editMenu = new JMenu("Edit");
-		JMenuItem categoryItem = new JMenuItem("Categories");
-		editMenu.add(categoryItem);
+		editCategoryItem = new JMenuItem("Categories");
+		editCategoryItem.addActionListener(this);
+		editMenu.add(editCategoryItem);
 		return editMenu;
 	}
 	
@@ -158,12 +161,12 @@ public class KanbanView extends JFrame implements IKanbanModelObserver, ActionLi
 		categoryPanel.removeAll();
 		for(Category category : categories){
 			int taskNum = model.categoryTaskNumber(category);
-			if( taskNum > 0){
-				System.out.println(category.getName() + " has " + taskNum + " Tasks");
+			// Do we want to draw categories that have 0 tasks? Maybe make this a preference?
+			//if( taskNum > 0){
 				CategoryView catView = new CategoryView(category);
 				catView.revalidate();
 				categoryPanel.add(catView);
-			}
+			//}
 		}
 		categoryPanel.revalidate();
 	}
@@ -188,6 +191,18 @@ public class KanbanView extends JFrame implements IKanbanModelObserver, ActionLi
 		if(arg0.getSource().equals(openMenuItem)){
 			controller.openKanbanBoard();
 		}
+		if(arg0.getSource().equals(editCategoryItem)){
+			openEditCategoryWindow();
+		}
+	}
+	
+	/**
+	 * Opens an edit cateogry dialog box
+	 */
+	public void openEditCategoryWindow(){
+		EditCategoryDialog editCatDialog = new EditCategoryDialog(this, "Edit Categories", true);
+		editCatDialog.setSize(500, 400);
+		editCatDialog.setVisible(true);
 	}
 	
 	/**

@@ -26,15 +26,29 @@ import kanban.vo.Task;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
-public class NewTaskDialog extends JDialog {
+public class EditTaskDialog extends JDialog {
 	private JTextField taskTitle;
 	private JTextArea taskDescription;
 	private JCheckBox taskCompleteCheckBox;
 	private JComboBox taskCategoryBox;
+	private Task task;
 	
-	public NewTaskDialog(JFrame frame, String title, Boolean modal){
+	public EditTaskDialog(Task task, JFrame frame, String title, Boolean modal){
 		super(frame, title, modal);
+		this.task = task;
 		createUI();
+	}
+	
+	private void saveTask(){
+		KanbanModel.getInstance().updateTask(task, taskTitle.getText(), taskDescription.getText(), taskCompleteCheckBox.isSelected(), (Category)taskCategoryBox.getSelectedItem());
+		this.dispose();
+	}
+	
+	private void cancelNewTask(){
+		this.dispose();
+	}
+	
+	private void createUI(){
 		this.setResizable(false);
 		
 		JPanel contentPanel = new JPanel();
@@ -58,20 +72,24 @@ public class NewTaskDialog extends JDialog {
 		
 		taskTitle = new JTextField();
 		taskTitle.setBounds(93, 11, 341, 20);
+		taskTitle.setText(task.getName());
 		contentPanel.add(taskTitle);
 		taskTitle.setColumns(10);
 		
 		taskCategoryBox = new JComboBox(KanbanModel.getInstance().getCategories());
+		taskCategoryBox.setSelectedItem(task.getCategory());
 		taskCategoryBox.setBounds(93, 183, 212, 20);
 		
 		contentPanel.add(taskCategoryBox);
 		
 		taskCompleteCheckBox = new JCheckBox("Complete");
+		taskCompleteCheckBox.setSelected(task.getComplete());
 		taskCompleteCheckBox.setHorizontalAlignment(SwingConstants.CENTER);
 		taskCompleteCheckBox.setBounds(10, 218, 424, 23);
 		contentPanel.add(taskCompleteCheckBox);
 		
 		taskDescription = new JTextArea();
+		taskDescription.setText(task.getDescription());
 		taskDescription.setBounds(93, 39, 341, 133);
 		contentPanel.add(taskDescription);
 		
@@ -82,10 +100,10 @@ public class NewTaskDialog extends JDialog {
 		Component horizontalGlue_1 = Box.createHorizontalGlue();
 		buttonPanel.add(horizontalGlue_1);
 		
-		JButton addTaskButton = new JButton("Add New Task");
+		JButton addTaskButton = new JButton("Save Task");
 		addTaskButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				createNewTask();
+				saveTask();
 			}
 		});
 		buttonPanel.add(addTaskButton);
@@ -100,22 +118,5 @@ public class NewTaskDialog extends JDialog {
 		
 		Component horizontalGlue = Box.createHorizontalGlue();
 		buttonPanel.add(horizontalGlue);
-	}
-	
-	private void createNewTask(){
-		Task task = new Task();
-		task.setName(taskTitle.getText());
-		task.setDescription(taskDescription.getText());
-		task.setComplete(taskCompleteCheckBox.isSelected());
-		task.setCategory((Category)taskCategoryBox.getSelectedItem());
-		KanbanModel.getInstance().addTask(task);
-		this.dispose();
-	}
-	
-	private void cancelNewTask(){
-		this.dispose();
-	}
-	
-	private void createUI(){
 	}
 }

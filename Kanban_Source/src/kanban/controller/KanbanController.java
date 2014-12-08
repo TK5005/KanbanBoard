@@ -2,7 +2,10 @@ package kanban.controller;
 
 import java.io.File;
 
+import javax.swing.JDialog;
 import javax.swing.JFileChooser;
+import javax.swing.JOptionPane;
+import javax.swing.filechooser.FileFilter;
 
 import kanban.model.KanbanModel;
 import kanban.service.BoardFileService;
@@ -53,11 +56,34 @@ public class KanbanController implements IKanbanController {
 	
 	@Override
 	public void saveKanbanBoard(){
-		JFileChooser fileChooser = new JFileChooser();
+		try{
+			final JFileChooser fileChooser = new JFileChooser(new File("File to start in"));
+		    fileChooser.setFileFilter(new FileFilter() {
+		        @Override
+		        public boolean accept(File f) {
+		            if (f.isDirectory()) {
+		                return true;
+		            }
+		            final String name = f.getName();
+		            return name.endsWith(".kb");
+		        }
+
+		        @Override
+		        public String getDescription() {
+		            return "*.kb";
+		        }
+		    });
 		int returnVal = fileChooser.showSaveDialog(null);
 		if(returnVal == JFileChooser.APPROVE_OPTION){
 			File file = fileChooser.getSelectedFile();
+			String file_name = file.toString();
+			if (!file_name.endsWith(".kb"))
+			    file_name += ".kb";
+			file = new File(file_name);
 			boardService.saveBoard(file, model.getKanbanBoard());
+		}
+		}catch(Exception ex){
+			JOptionPane.showMessageDialog(null, "There was an error saving your Kanban Board");
 		}
 	}
 	
@@ -81,13 +107,32 @@ public class KanbanController implements IKanbanController {
 
 	@Override
 	public void openKanbanBoard() {
-		JFileChooser fileChooser = new JFileChooser();
-		int returnVal = fileChooser.showOpenDialog(null);
-        if (returnVal == JFileChooser.APPROVE_OPTION) {
-            File file = fileChooser.getSelectedFile();
-            KanbanBoard board = boardService.loadBoard(file);
-    		model.setKanbanBoard(board);
-        }
+		try{
+			final JFileChooser fileChooser = new JFileChooser(new File("File to start in"));
+		    fileChooser.setFileFilter(new FileFilter() {
+		        @Override
+		        public boolean accept(File f) {
+		            if (f.isDirectory()) {
+		                return true;
+		            }
+		            final String name = f.getName();
+		            return name.endsWith(".kb");
+		        }
+
+		        @Override
+		        public String getDescription() {
+		            return "*.kb";
+		        }
+		    });
+			int returnVal = fileChooser.showOpenDialog(null);
+	        if (returnVal == JFileChooser.APPROVE_OPTION) {
+	            File file = fileChooser.getSelectedFile();
+	            KanbanBoard board = boardService.loadBoard(file);
+	    		model.setKanbanBoard(board);
+	        }
+		}catch(Exception ex){
+			JOptionPane.showMessageDialog(null, "There was an error opening your Kanban Board");
+		}
 	}
 
 	@Override

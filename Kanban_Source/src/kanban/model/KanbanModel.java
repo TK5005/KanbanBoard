@@ -42,6 +42,22 @@ public class KanbanModel {
 		return "";
 	}
 	
+	public void updateCategory(Category category, String newTitle, String newDescription){
+		category.setName(newTitle);
+		category.setDescription(newDescription);
+		notifyObservers();
+	}
+	
+	public void addCategory(Category category){
+		kanbanBoard.addCategory(category);
+		notifyObservers();
+	}
+	
+	public void addTask(Task task){
+		kanbanBoard.addTask(task);
+		notifyObservers();
+	}
+	
 	public static KanbanModel getInstance() {
 		if(instance == null){
 			instance = new KanbanModel();
@@ -108,6 +124,10 @@ public class KanbanModel {
 		return taskArray;
 	}
 	
+	public Category[] getCategories(){
+		return kanbanBoard.getCategoryArray();
+	}
+	
 	/**
 	 * Gets the number of tasks in a category
 	 * @param category The category to get the task number for.
@@ -122,5 +142,14 @@ public class KanbanModel {
 			}
 		}
 		return taskNum;
+	}
+
+	public void updateTask(Task task, String title, String description,
+			boolean isComplete, Category category) {
+		task.setName(title);
+		task.setDescription(description);
+		task.setComplete(isComplete);
+		task.setCategory(category);
+		notifyObservers();
 	}
 }
